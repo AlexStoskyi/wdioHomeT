@@ -6,6 +6,10 @@
     "test": "wdio run ./wdio.conf.ts",
     "test:chrome": "npx wdio ./configs/wdio.chrome.conf.ts",
     "test:firefox": "npx wdio ./configs/wdio.firefox.conf.ts",
+    "test:setting": "npx wdio run ./wdio.conf.js --spec ./test/specs/settings_test.ts",
+    "test:singin": "npx wdio run ./wdio.conf.js --spec ./test/specs/singIn_test.ts",
+    "test:singup": "npx wdio run ./wdio.conf.js --spec ./test/specs/singUp_test.ts",
+    "test:article": "npx wdio run ./wdio.conf.js --spec ./test/specs/article_test.ts",
     "allure:generate": "allure generate allure-results --clean",
     "allure:open": "allure open ./allure-report"
   },

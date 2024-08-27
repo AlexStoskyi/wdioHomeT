@@ -10,8 +10,7 @@ describe("Article", () => {
         browser.waitUntil(
             () => browser.execute(() => document.readyState === 'complete'),
             {
-                timeout: 10000, // максимальний час очікування в мілісекундах
-                timeoutMsg: 'Сторінка не завантажилася за очікуваний час'
+                timeout: 10000,
             }
         );
         await LoginPage.login(validData.email, validData.password);
