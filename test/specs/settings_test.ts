@@ -1,7 +1,7 @@
 import { expect } from "@wdio/globals";
 import MainPage from "../pageobjects/main.page";
 import LoginPage from "../pageobjects/login.page";
-import SettingsPage from "../pageobjects/settings.page";
+import SettingsPage from "../pageobjects/settings.page"
 import validData = require('../fixtures/valid_data.json');
 
 describe("Article", () => {
