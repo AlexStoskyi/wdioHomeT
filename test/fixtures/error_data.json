@@ -1,0 +1,9 @@
+{
+  "takenEmail": "email has already been taken",
+  "takenUserName": "username has already been taken",
+  "invalidData": "email or password is invalid",
+  "emptyDescriptionError": "description can't be blank",
+  "emptyBodyError": "body can't be blank",
+  "emptyTitleError": "title can't be blank",
+  "noArticle": "No articles are here... yet."
+}

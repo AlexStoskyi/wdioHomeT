@@ -1,0 +1,8 @@
+{
+  "name": "1valid_user_name",
+  "email": "1valid_user_email@gmail.com",
+  "password": "valid_user_password",
+  "changeName": "change_valid_user_name",
+  "set_button": "Settings",
+  "settings": "Your Settings"
+}
