@@ -25,7 +25,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run test:chrome
+        run: npm run test
 
       - name: Generate Allure report
         run: |
