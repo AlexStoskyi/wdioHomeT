@@ -22,7 +22,12 @@ export const config: Options.Testrunner = {
       browserName: 'chrome',
       acceptInsecureCerts: true,
       'goog:chromeOptions': {
-        args: ['--disable-infobars', '--window-size=1280,800']
+        args: [
+          '--disable-infobars',
+          '--window-size=1280,800',
+          '--no-sandbox',
+          '--disable-dev-shm-usage'
+        ]
       }
     },
     // Uncomment this section to add Firefox support
@@ -41,7 +46,6 @@ export const config: Options.Testrunner = {
   // ===================
   logLevel: 'info',
   bail: 0,
-  baseUrl: 'https://conduit.realworld.how/',
   waitforTimeout: 10000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
