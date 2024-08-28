@@ -1,55 +1,52 @@
-name: WebdriverIO
+name: WDIO Tests
 
 on:
   workflow_dispatch:
 
   push:
-    branches: [main]
+    branches: [master]
 
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    name: E2E on Chrome
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Test Chrome
+      - name: WebDriverIO Tests
         run: npm run test
         env:
-          group: "UI-Chrome"
           TZ: Europe/Warsaw
+          NODE_ENV: production
 
-      - name: Get Allure history
-        uses: actions/checkout@v2
-        if: always()
-        continue-on-error: true
+      - name: Generate Allure Report
+        run: npx allure generate allure-results --clean -o allure-report
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
         with:
-          ref: gh-pages
-          path: gh-pages
+          name: allure-report
+          path: allure-report
 
-      - name: Allure Report action from marketplace
-        uses: simple-elf/allure-report-action@master
-        if: always()
+      - name: Screenshots report
+        uses: actions/upload-artifact@v4
         with:
-          allure_results: reports/allure-result
-          allure_history: reports/allure-history
-          keep_reports: 10
+          name: wdio-screenshots
+          path: ./screenshots
+          if-no-files-found: ignore
 
-      - name: Deploy report to Github Pages
-        uses: peaceiris/actions-gh-pages@v2
-        if: always()
-        env:
-          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: reports/allure-history
+      - name: Video report
+        uses: actions/upload-artifact@v4
+        with:
+          name: wdio-videos
+          path: ./videos
+          if-no-files-found: ignore
