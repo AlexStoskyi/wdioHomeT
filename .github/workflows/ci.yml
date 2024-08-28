@@ -1,4 +1,4 @@
-name: WDIO/Allur/Docker Tests
+name: WDIO Tests
 
 on:
   workflow_dispatch:
@@ -16,50 +16,28 @@ jobs:
     name: E2E on Chrome
 
     services:
-      docker:
+      selenium:
         image: selenium/standalone-chrome:latest
         options: >
           --shm-size=2g
         ports:
           - 4444:4444
-        env:
-          START_XVFB: "false"
-          SE_OPTS: "-enablePassThrough false"
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker
-        run: docker pull selenium/standalone-chrome:latest
-
       - name: Install Dependencies
-        run: |
-          docker run --rm \
-          -v ${{ github.workspace }}:/e2e \
-          -w /e2e \
-          node:18-alpine \
-          npm ci
+        run: npm ci
 
       - name: WebDriverIO Tests
-        run: |
-          docker run --rm \
-          -v ${{ github.workspace }}:/e2e \
-          -w /e2e \
-          --shm-size=2g \
-          selenium/standalone-chrome:latest \
-          npm run test
+        run: npm run test:setting
         env:
           TZ: Europe/Warsaw
           NODE_ENV: production
 
       - name: Generate Allure Report
-        run: |
-          docker run --rm \
-          -v ${{ github.workspace }}:/e2e \
-          -w /e2e \
-          node:18-alpine \
-          npx allure generate allure-results --clean -o allure-report
+        run: npx allure generate allure-results --clean -o allure-report
 
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
